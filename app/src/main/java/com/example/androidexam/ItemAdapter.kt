@@ -27,9 +27,9 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(filteredItems[position].imageUrl.isNullOrBlank()){
-            holder.bind(filteredItems[position].text, filteredItems[position].imageResourceId)
+            holder.bind(filteredItems[position].text, filteredItems[position].subText, filteredItems[position].imageResourceId)
         }else {
-            filteredItems[position].imageUrl?.let { holder.bind(filteredItems[position].text, it) }
+            filteredItems[position].imageUrl?.let { holder.bind(filteredItems[position].text, filteredItems[position].subText, it) }
         }
     }
 
@@ -39,7 +39,8 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
         filteredItems = if (query.isNullOrEmpty()) {
             items
         } else {
-            items.filter { it.text.contains(query, ignoreCase = true) }
+            items.filter { it.text.contains(query, ignoreCase = true) || it.subText.contains(query, ignoreCase = true)
+            }
         }
         notifyDataSetChanged()
     }
@@ -47,9 +48,11 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
         private val textView: TextView = itemView.findViewById(R.id.textView)
+        private val subTextView: TextView = itemView.findViewById(R.id.subTextView)
 
-        fun bind(text: String, image: String) {
+        fun bind(text: String, subText: String, image: String) {
             textView.text = text
+            subTextView.text = subText
             //imageView.image = image
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -59,8 +62,9 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
                 }
             }
         }
-        fun bind(text: String, image: Int?) {
+        fun bind(text: String, subText: String, image: Int?) {
             textView.text = text
+            subTextView.text = subText
             if (image != null) {
                 imageView.setImageResource(image)
             }

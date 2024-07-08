@@ -4,17 +4,37 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp"
+    android:background="@drawable/list_item_rounded_corners"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="5dp"
     >
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="8dp"
+        android:src="@drawable/phone"
+        android:background="@drawable/rounded_corners"
         />
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        />
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/subTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+
 </LinearLayout>
